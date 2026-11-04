@@ -1,0 +1,41 @@
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+.uv/
+
+# ── Node ─────────────────────────────────────────────────────────────────────
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+package-lock.json
+
+# ── Environment / secrets ────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+# Keep .env.example — it's the template, not a secret
+
+# ── Runtime data (generated, never committed) ─────────────────────────────────
+/tmp/
+*.transcript_cache.json
+*.source_map.json
+
+# ── OS / editor ──────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── Downloaded model / font caches ───────────────────────────────────────────
+localclips_fonts/
+localclips_mp_models/
+haarcascade_frontalface_default.xml

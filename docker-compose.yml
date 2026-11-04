@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  # ── FastAPI backend ──────────────────────────────────────────────────────
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8001:8001"
+    volumes:
+      # Persist uploaded videos and rendered clips
+      - localclips_data:/tmp/localclips
+      # Mount the original supoclip backend so we can reuse its rendering code
+      - ../backend:/supoclip_backend:ro
+    environment:
+      - TEMP_DIR=/tmp/localclips
+      - PYTHONPATH=/supoclip_backend
+    restart: unless-stopped
+
+  # ── Next.js frontend ─────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=http://localhost:8001
+    ports:
+      - "3200:3200"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:8001
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  localclips_data:
